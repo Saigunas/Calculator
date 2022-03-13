@@ -76,15 +76,17 @@ function addFunctionCall(e) {
     let a = inputHistory[inputHistory.length - 2];
     let b = inputHistory[inputHistory.length - 1];
     calculateNumbers(a, currSign, b);
-    isFunctionReady = false;
   }
 
   //If there was no number input yet, don't allow sign input
   if (inputHistory.length !== 0) {
     currSign = e.target.getAttribute("data-key");
-    console.log(currSign);
+    if (currSign === "=") {
+      currSign = "";
+    }
   }
 
   //Before leaving clear previous number
+  isFunctionReady = false;
   currNumber = [];
 }
