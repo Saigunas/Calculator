@@ -45,6 +45,10 @@ function arrToNumber(arr) {
   return Number(arr.join(""));
 }
 
+function arrToString(arr) {
+  return arr.join("");
+}
+
 const calculatorScreen = document.querySelector(".calculator-screen");
 //Calculator buttons map
 const numberButtons = document.querySelectorAll(".number-call");
@@ -59,9 +63,19 @@ functionButtons.forEach((functionButton) =>
 
 function addNumberCall(e) {
   let calledNumber = e.target.getAttribute("data-key");
-  console.log(calledNumber);
+
+  if (calledNumber === ".") {
+    if (currNumber.includes(".")) {
+      return;
+    }
+    //adds 0 before dot
+    if (currNumber.length === 0) {
+      currNumber.push(0);
+    }
+  }
+
   currNumber.push(calledNumber);
-  calculatorScreen.textContent = arrToNumber(currNumber);
+  calculatorScreen.textContent = arrToString(currNumber);
 
   //If there was a sign before, function will be ready to execute
   if (currSign !== "") {
@@ -101,7 +115,7 @@ function addFunctionCall(e) {
     if (currSign === "b") {
       currNumber.splice(-1);
       currSign = "";
-      calculatorScreen.textContent = arrToNumber(currNumber);
+      calculatorScreen.textContent = arrToString(currNumber);
       return;
     }
   }
