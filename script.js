@@ -29,6 +29,7 @@ function calculateNumbers(a, sign, b) {
 
   inputHistory.push(answer);
   console.log(answer);
+  return answer;
 }
 
 console.table(inputHistory);
@@ -44,6 +45,7 @@ function arrToNumber(arr) {
   return Number(arr.join(""));
 }
 
+const calculatorScreen = document.querySelector(".calculator-screen");
 //Calculator buttons map
 const numberButtons = document.querySelectorAll(".number-call");
 const functionButtons = document.querySelectorAll(".function-call");
@@ -59,6 +61,7 @@ function addNumberCall(e) {
   let calledNumber = e.target.getAttribute("data-key");
   console.log(calledNumber);
   currNumber.push(calledNumber);
+  calculatorScreen.textContent = arrToNumber(currNumber);
 
   //If there was a sign before, function will be ready to execute
   if (currSign !== "") {
@@ -75,7 +78,8 @@ function addFunctionCall(e) {
   if (isFunctionReady === true) {
     let a = inputHistory[inputHistory.length - 2];
     let b = inputHistory[inputHistory.length - 1];
-    calculateNumbers(a, currSign, b);
+    let answer = calculateNumbers(a, currSign, b);
+    calculatorScreen.textContent = answer;
   }
 
   //If there was no number input yet, don't allow sign input
@@ -88,6 +92,17 @@ function addFunctionCall(e) {
       if (isFunctionReady === false) {
         return;
       }
+    }
+    if (currSign === "c") {
+      inputHistory = [];
+      currSign = "";
+      calculatorScreen.textContent = 0;
+    }
+    if (currSign === "b") {
+      currNumber.splice(-1);
+      currSign = "";
+      calculatorScreen.textContent = arrToNumber(currNumber);
+      return;
     }
   }
 
