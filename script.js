@@ -74,9 +74,15 @@ function addNumberCall(e) {
     }
   }
 
+  //Don't allow 0 as first number
+  if (calledNumber === "0") {
+    if (currNumber.length === 0) {
+      return;
+    }
+  }
+
   currNumber.push(calledNumber);
   calculatorScreen.textContent = arrToString(currNumber);
-
   //If there was a sign before, function will be ready to execute
   if (currSign !== "") {
     isFunctionReady = true;
