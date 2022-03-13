@@ -1,12 +1,8 @@
-/*
-  Plan:
-    Create calculator arithmetic functions
-    Create function that takes 2 numbers and arithmetic symbol
-    Create the array of input numbers and results
-    Create a basic HTML calculator with buttons for each digit, 
-      each of the above functions and an “Equals” key. 
-*/ console.clear();
+console.clear();
 let inputHistory = [];
+let currNumber = [];
+let currSign = "";
+let isFunctionReady = false;
 
 function calculateNumbers(a, sign, b) {
   let answer;
@@ -32,9 +28,63 @@ function calculateNumbers(a, sign, b) {
   }
 
   inputHistory.push(answer);
-  return answer;
+  console.log(answer);
 }
 
-console.log(calculateNumbers(1, "-", 3));
-
 console.table(inputHistory);
+
+// document.onkeypress = function (evt) {
+//   evt = evt || window.event;
+//   var charCode = evt.keyCode || evt.which;
+//   var charStr = String.fromCharCode(charCode);
+//   alert(charStr);
+// };
+
+function arrToNumber(arr) {
+  return Number(arr.join(""));
+}
+
+//Calculator buttons map
+const numberButtons = document.querySelectorAll(".number-call");
+const functionButtons = document.querySelectorAll(".function-call");
+
+numberButtons.forEach((numberButton) =>
+  numberButton.addEventListener("click", addNumberCall)
+);
+functionButtons.forEach((functionButton) =>
+  functionButton.addEventListener("click", addFunctionCall)
+);
+
+function addNumberCall(e) {
+  let calledNumber = e.target.getAttribute("data-key");
+  console.log(calledNumber);
+  currNumber.push(calledNumber);
+
+  //If there was a sign before, function will be ready to execute
+  if (currSign !== "") {
+    isFunctionReady = true;
+  }
+}
+
+function addFunctionCall(e) {
+  if (currNumber.length !== 0) {
+    //Add number to history
+    inputHistory.push(arrToNumber(currNumber));
+  }
+
+  if (isFunctionReady === true) {
+    let a = inputHistory[inputHistory.length - 2];
+    let b = inputHistory[inputHistory.length - 1];
+    calculateNumbers(a, currSign, b);
+    isFunctionReady = false;
+  }
+
+  //If there was no number input yet, don't allow sign input
+  if (inputHistory.length !== 0) {
+    currSign = e.target.getAttribute("data-key");
+    console.log(currSign);
+  }
+
+  //Before leaving clear previous number
+  currNumber = [];
+}
