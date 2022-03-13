@@ -83,6 +83,11 @@ function addFunctionCall(e) {
     currSign = e.target.getAttribute("data-key");
     if (currSign === "=") {
       currSign = "";
+
+      //If it there is no function, ignore "="
+      if (isFunctionReady === false) {
+        return;
+      }
     }
   }
 
