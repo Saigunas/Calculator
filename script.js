@@ -121,6 +121,10 @@ function addFunctionCall(e) {
     if (currSign === "b") {
       currNumber.splice(-1);
       currSign = "";
+      if (currNumber.length === 0) {
+        calculatorScreen.textContent = "0";
+        return;
+      }
       calculatorScreen.textContent = arrToString(currNumber);
       return;
     }
