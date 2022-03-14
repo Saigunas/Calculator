@@ -39,16 +39,8 @@ function calculateNumbers(a, sign, b) {
     answer = answer.toExponential(2);
   }
   inputHistory.push(answer);
-  console.log(answer);
   return answer;
 }
-
-// document.onkeypress = function (evt) {
-//   evt = evt || window.event;
-//   var charCode = evt.keyCode || evt.which;
-//   var charStr = String.fromCharCode(charCode);
-//   alert(charStr);
-// };
 
 function arrToNumber(arr) {
   return Number(arr.join(""));
@@ -64,15 +56,48 @@ const numberButtons = document.querySelectorAll(".number-call");
 const functionButtons = document.querySelectorAll(".function-call");
 
 numberButtons.forEach((numberButton) =>
-  numberButton.addEventListener("click", addNumberCall)
+  numberButton.addEventListener("click", function () {
+    addNumberCall(this.getAttribute("data-key"));
+  })
 );
+
 functionButtons.forEach((functionButton) =>
-  functionButton.addEventListener("click", addFunctionCall)
+  functionButton.addEventListener("click", function () {
+    addFunctionCall(this.getAttribute("data-key"));
+  })
 );
 
-function addNumberCall(e) {
-  let calledNumber = e.target.getAttribute("data-key");
+let allowedNumbers = Array.from(numberButtons).map((element) =>
+  element.getAttribute("data-key")
+);
+let allowedFunctions = Array.from(functionButtons).map((element) =>
+  element.getAttribute("data-key")
+);
 
+document.onkeydown = function (e) {
+  let charCode = e.keyCode;
+  //Backspace
+  if (charCode === 8) {
+    addFunctionCall("b");
+  }
+};
+
+document.onkeypress = function (evt) {
+  //Get character from charCode
+  evt = evt || window.event;
+  var charCode = evt.keyCode || evt.which;
+  var charStr = String.fromCharCode(charCode);
+
+  //check if number or element is allowed
+  if (allowedNumbers.includes(charStr)) {
+    addNumberCall(charStr);
+  }
+  if (allowedFunctions.includes(charStr)) {
+    addFunctionCall(charStr);
+  }
+};
+
+function addNumberCall(calledNumber) {
   if (calledNumber === ".") {
     if (currNumber.includes(".")) {
       return;
@@ -102,7 +127,7 @@ function addNumberCall(e) {
   }
 }
 
-function addFunctionCall(e) {
+function addFunctionCall(calledSign) {
   if (currNumber.length !== 0) {
     //Add number to history
     inputHistory.push(arrToNumber(currNumber));
@@ -117,7 +142,7 @@ function addFunctionCall(e) {
 
   //If there was no number input yet, don't allow sign input
   if (inputHistory.length !== 0) {
-    currSign = e.target.getAttribute("data-key");
+    currSign = calledSign;
     if (currSign === "=") {
       currSign = "";
 
