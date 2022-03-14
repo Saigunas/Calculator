@@ -4,6 +4,15 @@ let currNumber = [];
 let currSign = "";
 let isFunctionReady = false;
 
+function limitNumber(numberToLimit) {
+  var max_chars = 5;
+
+  if (numberToLimit.length > max_chars) {
+    numberToLimit = numberToLimit.substr(0, max_chars);
+    return true;
+  }
+}
+
 function calculateNumbers(a, sign, b) {
   let answer;
   switch (sign) {
@@ -26,13 +35,13 @@ function calculateNumbers(a, sign, b) {
   if (answer === "ERROR") {
     return answer;
   }
-
+  if (limitNumber(answer.toString())) {
+    answer = answer.toExponential(2);
+  }
   inputHistory.push(answer);
   console.log(answer);
   return answer;
 }
-
-console.table(inputHistory);
 
 // document.onkeypress = function (evt) {
 //   evt = evt || window.event;
@@ -81,8 +90,12 @@ function addNumberCall(e) {
     }
   }
 
-  currNumber.push(calledNumber);
+  if (limitNumber(arrToString(currNumber)) !== true) {
+    currNumber.push(calledNumber);
+  }
+
   calculatorScreen.textContent = arrToString(currNumber);
+
   //If there was a sign before, function will be ready to execute
   if (currSign !== "") {
     isFunctionReady = true;
