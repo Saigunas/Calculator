@@ -80,6 +80,9 @@ document.onkeydown = function (e) {
   if (charCode === 8) {
     addFunctionCall("b");
   }
+  if (charCode === 13) {
+    addFunctionCall("=");
+  }
 };
 
 document.onkeypress = function (evt) {
