@@ -111,9 +111,9 @@ function addNumberCall(calledNumber) {
     }
   }
 
-  //Don't allow 0 as first number
+  //Don't allow 0 to be repeated
   if (calledNumber === "0") {
-    if (currNumber.length === 0) {
+    if (currNumber[0] === "0") {
       return;
     }
   }
