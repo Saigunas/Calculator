@@ -58,6 +58,7 @@ const functionButtons = document.querySelectorAll(".function-call");
 numberButtons.forEach((numberButton) =>
   numberButton.addEventListener("click", function () {
     addNumberCall(this.getAttribute("data-key"));
+    //this.classList.add("buttonClicked");
   })
 );
 

@@ -1,21 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
+
+body {
+  font-family: "Orbitron", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  background-color: #ffe6d9;
+}
+
+.header {
+  padding: 20px;
+}
+
+.calculator-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.calculator {
+  font-size: 70px;
+  object-fit: cover;
+  height: fit-content;
+  background-color: #eb886f;
+  border-radius: 60px;
+  padding: 20px;
+}
+
+.calculator-screen-bg {
+  display: flex;
+  background-color: black;
+  justify-content: center;
+  height: 180px;
+  align-items: flex-end;
+  border-radius: 60px 60px 0px 0px;
+}
+
+.calculator-screen-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  height: 80px;
+  width: 90%;
+  margin-bottom: 20px;
+  background-color: rgb(122, 129, 122);
+}
+
+.calculator-screen {
+  padding-right: 5px;
+}
+
+.calculator-buttons-bg {
+  background-color: #e76f51;
+  border-radius: 0px 0px 60px 60px;
+}
+
 .calculator-buttons {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(4, 100px);
+  gap: 10px;
+  padding: 10px;
+  padding-top: 40px;
+  color: rgb(236, 236, 236);
 }
 
 .grid-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+}
+
+.buttonClicked {
+  animation-name: buttonAnimation;
+  animation-duration: 250ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes buttonAnimation {
+  0% {
+  }
+  50% {
+    width: 80px;
+    height: 80px;
+  }
+  100% {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.grid-item:hover {
+  cursor: pointer;
 }
 
 [data-key="0"] {
-  background-color: red;
+  background-color: #930100;
   grid-column-start: 1;
   grid-column-end: 3;
+  width: auto;
+  height: auto;
 }
 
 [data-key="="] {
-  background-color: red;
+  background-color: #930100;
   grid-column-start: 4;
   grid-column-end: 5;
   grid-row-start: 4;
   grid-row-end: 6;
+  width: auto;
+  height: auto;
+}
+
+[data-key="c"],
+[data-key="b"] {
+  font-size: 20px;
+}
+
+.credits {
+  text-align: center;
+  padding: 20px;
+  background-color: rgb(236, 236, 236);
 }

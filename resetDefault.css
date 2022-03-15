@@ -38,6 +38,7 @@ section {
   display: block;
 }
 body {
+  margin: 0px;
   line-height: 1;
 }
 ol,
