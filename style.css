@@ -14,6 +14,7 @@ body {
 }
 
 .calculator-wrapper {
+  overflow: hidden;
   flex: 1 1 auto;
   display: flex;
   width: 100%;
@@ -78,20 +79,15 @@ body {
 
 .buttonClicked {
   animation-name: buttonAnimation;
-  animation-duration: 250ms;
-  animation-fill-mode: forwards;
+  animation-duration: 110ms;
 }
 
 @keyframes buttonAnimation {
   0% {
-  }
-  50% {
-    width: 80px;
-    height: 80px;
+    transform: scale(0.88);
   }
   100% {
-    width: 100px;
-    height: 100px;
+    transform: scale(1);
   }
 }
 
@@ -126,4 +122,15 @@ body {
   text-align: center;
   padding: 20px;
   background-color: rgb(236, 236, 236);
+}
+
+.calculator-buttons {
+  /* Disable text select */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome and Opera */
 }

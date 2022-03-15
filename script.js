@@ -55,18 +55,25 @@ const calculatorScreen = document.querySelector(".calculator-screen");
 const numberButtons = document.querySelectorAll(".number-call");
 const functionButtons = document.querySelectorAll(".function-call");
 
-numberButtons.forEach((numberButton) =>
+numberButtons.forEach((numberButton) => {
   numberButton.addEventListener("click", function () {
     addNumberCall(this.getAttribute("data-key"));
-    //this.classList.add("buttonClicked");
-  })
-);
+    this.classList.add("buttonClicked");
+  });
+  numberButton.addEventListener("animationend", removeTransition);
+});
 
-functionButtons.forEach((functionButton) =>
+functionButtons.forEach((functionButton) => {
   functionButton.addEventListener("click", function () {
     addFunctionCall(this.getAttribute("data-key"));
-  })
-);
+    this.classList.add("buttonClicked");
+  });
+  functionButton.addEventListener("animationend", removeTransition);
+});
+
+function removeTransition(e) {
+  this.classList.remove("buttonClicked");
+}
 
 let allowedNumbers = Array.from(numberButtons).map((element) =>
   element.getAttribute("data-key")
